@@ -6,4 +6,4 @@
 Вася +375 (29) 388-55-44
 Петя +375 (29) 254-77-14
 # Playwright результаты
-![Снимок экрана 2026-03-24 234134](https://github.com/user-attachments/assets/6fe68526-b6b5-48eb-bd3b-aaec62d4f5ea)
+![Снимок экрана 2026-03-25 002536](https://github.com/user-attachments/assets/ab45a764-f52c-4341-9fd3-4f760723b7cd)
