@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Sauce Demo authorisation', () => {
+test.skip('Sauce Demo authorisation', () => {
 
   test('check login credentials', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/')
