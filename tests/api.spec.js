@@ -40,14 +40,14 @@ test.describe('booking full cycle', () => {
         }
     })
     test('booking put', async ({ request }) => {
-        const response = await request.post(`${BASE_URL}/auth`, {
+        const responsePost = await request.post(`${BASE_URL}/auth`, {
             data: {
                 username: "admin",
                 password: "password123"
             }
         })
-        const body = await response.json()
-        expect(body).toHaveProperty('token')
+        const bodyPost = await responsePost.json()
+        expect(bodyPost).toHaveProperty('token')
         let updatedData = {
                 "firstname": "Jon",
                 "lastname": "Snow",
@@ -62,31 +62,31 @@ test.describe('booking full cycle', () => {
         const responsePut = await request.put(`${BASE_URL}/booking/${bookingId}`, {
             data: updatedData,
             headers: {
-                Cookie: `token=${body.token}`
+                Cookie: `token=${bodyPost.token}`
             }
         })
-        const body1 = await responsePut.json()
-        expect(response.status()).toBe(200)
+        const bodyPut = await responsePut.json()
+        expect(responsePost.status()).toBe(200)
         for (let key in updatedData) {
-            expect(body1).toHaveProperty(key, updatedData[key])
+            expect(bodyPut).toHaveProperty(key, updatedData[key])
         }
     })
     test('booking delete', async ({ request }) => {
-        const response = await request.post(`${BASE_URL}/auth`, {
+        const responsePost = await request.post(`${BASE_URL}/auth`, {
             data: {
                 username: "admin",
                 password: "password123"
             }
         })
-        const body = await response.json()
+        const body = await responsePost.json()
         expect(body).toHaveProperty('token')
-        const response1 = await request.delete(`${BASE_URL}/booking/${bookingId}`, {
+        const responseDelete = await request.delete(`${BASE_URL}/booking/${bookingId}`, {
             headers: {
                 Cookie: `token=${body.token}`
             }
         })
-        expect(response1.status()).toBe(201)
-        const response3 = await request.get(`${BASE_URL}/booking/${bookingId}`)
-        expect(response3.status()).toBe(404)
+        expect(responseDelete.status()).toBe(201)
+        const responseGet = await request.get(`${BASE_URL}/booking/${bookingId}`)
+        expect(responseGet.status()).toBe(404)
     })
 })
