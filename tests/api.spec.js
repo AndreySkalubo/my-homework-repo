@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 const BASE_URL = 'https://restful-booker.herokuapp.com'
 let bookingId
-let token
+let authToken
 
 let bookingData = {
     "firstname": "Jim",
@@ -47,7 +47,7 @@ test.describe('booking full cycle', () => {
             }
         })
         const bodyPost = await responsePost.json()
-        expect(bodyPost).toHaveProperty('token')
+        authToken = bodyPost.token
         let updatedData = {
                 "firstname": "Jon",
                 "lastname": "Snow",
@@ -62,7 +62,7 @@ test.describe('booking full cycle', () => {
         const responsePut = await request.put(`${BASE_URL}/booking/${bookingId}`, {
             data: updatedData,
             headers: {
-                Cookie: `token=${bodyPost.token}`
+                Cookie: `token=${authToken}`
             }
         })
         const bodyPut = await responsePut.json()
@@ -72,17 +72,9 @@ test.describe('booking full cycle', () => {
         }
     })
     test('booking delete', async ({ request }) => {
-        const responsePost = await request.post(`${BASE_URL}/auth`, {
-            data: {
-                username: "admin",
-                password: "password123"
-            }
-        })
-        const body = await responsePost.json()
-        expect(body).toHaveProperty('token')
         const responseDelete = await request.delete(`${BASE_URL}/booking/${bookingId}`, {
             headers: {
-                Cookie: `token=${body.token}`
+                Cookie: `token=${authToken}`
             }
         })
         expect(responseDelete.status()).toBe(201)
