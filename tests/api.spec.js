@@ -18,7 +18,7 @@ let bookingData = {
 
 test.describe.configure({ mode: 'serial' })
 
-test.describe('booking full cycle', () => {
+test.describe('booking full cycle @api', () => {
     test('booking post', async ({ request }) => {
         const response = await request.post(`${BASE_URL}/booking`, {
             data: bookingData
